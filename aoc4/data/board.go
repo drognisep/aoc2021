@@ -57,9 +57,9 @@ outer:
 
 func (b *BingoBoard) winningRow() bool {
 outer:
-	for row := 0; row < BoardSize-BoardColumns; row += BoardColumns {
+	for row := 0; row < BoardRows; row++ {
 		for i := 0; i < BoardColumns; i++ {
-			if !b.data[i+row] {
+			if !b.data[i+row*BoardColumns] {
 				continue outer
 			}
 		}

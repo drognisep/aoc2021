@@ -22,6 +22,20 @@ func TestNewBingoBoard(t *testing.T) {
 			shouldWinAfter: 4,
 			winningScore:   420,
 		},
+		"Win on row after all bottom row numbers are called": {
+			creationData:   []int{6, 7, 8, 9, 0, 16, 17, 18, 19, 10, 26, 27, 28, 29, 20, 36, 37, 38, 39, 30, 1, 2, 3, 4, 5},
+			markedNumbers:  []int{1, 2, 3, 4, 5},
+			shouldWin:      true,
+			shouldWinAfter: 4,
+			winningScore:   420,
+		},
+		"Win on column after all right column numbers are called": {
+			creationData:   []int{16, 17, 18, 19, 1, 26, 27, 28, 29, 2, 36, 37, 38, 39, 3, 46, 47, 48, 49, 4, 56, 57, 58, 59, 5},
+			markedNumbers:  []int{1, 2, 3, 4, 5},
+			shouldWin:      true,
+			shouldWinAfter: 4,
+			winningScore:   750,
+		},
 		"Win on column after all left column numbers are called": {
 			creationData:   []int{1, 16, 17, 18, 19, 2, 26, 27, 28, 29, 3, 36, 37, 38, 39, 4, 46, 47, 48, 49, 5, 56, 57, 58, 59},
 			markedNumbers:  []int{1, 2, 3, 4, 5},

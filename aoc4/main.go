@@ -13,5 +13,5 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	simulator.SimulateGameData(data)
+	simulator.SimulateCowardlyGameData(data)
 }

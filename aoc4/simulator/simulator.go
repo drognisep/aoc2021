@@ -37,6 +37,41 @@ func SimulateGameData(source io.Reader) (winningScore int) {
 	return 0
 }
 
+func SimulateCowardlyGameData(source io.Reader) (winningScore int) {
+	var markedNumbers []int
+	scanner := bufio.NewScanner(source)
+
+	if !scanner.Scan() {
+		panicNoData()
+	}
+	markedNumbers = parseMarkLine(scanner.Text())
+	if !scanner.Scan() {
+		panicNoData()
+	}
+
+	boards := parseGameBoards(scanner)
+	winningBoards := map[int]int{}
+	for _, mark := range markedNumbers {
+		for i, board := range boards {
+			board.Mark(mark)
+			if board.HasWon() {
+				_, ok := winningBoards[i]
+				if ok {
+					continue
+				}
+				winningScore = board.Score() * mark
+				winningBoards[i] = winningScore
+				if len(winningBoards) == len(boards) {
+					fmt.Printf("Board %d has won with a score of %d\n", i, winningScore)
+					return winningScore
+				}
+			}
+		}
+	}
+	fmt.Println("None of the boards have won!")
+	return 0
+}
+
 func parseGameBoards(scanner *bufio.Scanner) (boards []*data.BingoBoard) {
 	for {
 		var boardNumbers []int
