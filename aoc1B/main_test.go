@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/drognisep/aoc2021/aoc1B/processes"
+	"github.com/stretchr/testify/require"
 	"testing"
 )
 
@@ -23,7 +24,5 @@ func TestLogic(t *testing.T) {
 	close(groupInput)
 	result := <-resultOutput
 	t.Log("There were", result, "increases")
-	if got, want := result, 5; got != want {
-		t.Fatal("Expected", want, "got", got)
-	}
+	require.Equal(t, 5, result)
 }
