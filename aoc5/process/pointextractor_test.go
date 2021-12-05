@@ -30,5 +30,5 @@ func TestExtractPoints(t *testing.T) {
 	close(lineCh)
 	lp := <-result
 
-	require.Equal(t, 5, lp.OverlappingPoints())
+	require.Equal(t, 12, lp.OverlappingPoints())
 }

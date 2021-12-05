@@ -13,34 +13,33 @@ func (l *Line) Direction() LineDirection {
 
 func (l *Line) LinePoints() LinePoints {
 	lp := NewLinePoints()
-	switch l.Direction() {
-	case Vertical:
-		x := l.X1
-		var y, y2 int
-		if l.Y1 < l.Y2 {
-			y = l.Y1
-			y2 = l.Y2
-		} else {
-			y = l.Y2
-			y2 = l.Y1
-		}
-
-		for ; y <= y2; y++ {
-			lp.AddCount(x, y)
-		}
-	case Horizontal:
-		y := l.Y1
-		var x, x2 int
-		if l.X1 < l.X2 {
-			x = l.X1
-			x2 = l.X2
-		} else {
-			x = l.X2
-			x2 = l.X1
-		}
-		for ; x <= x2; x++ {
-			lp.AddCount(x, y)
-		}
+	x, y := l.X1, l.Y1
+	dx, dy := l.stepSlope()
+	for x != l.X2 || y != l.Y2 {
+		lp.AddCount(x, y)
+		x += dx
+		y += dy
 	}
+	lp.AddCount(l.X2, l.Y2)
 	return lp
+}
+
+func (l *Line) stepSlope() (dx, dy int) {
+	switch {
+	case l.X2 > l.X1:
+		dx = 1
+	case l.X2 < l.X1:
+		dx = -1
+	default:
+		dx = 0
+	}
+	switch {
+	case l.Y2 > l.Y1:
+		dy = 1
+	case l.Y2 < l.Y1:
+		dy = -1
+	default:
+		dy = 0
+	}
+	return dx, dy
 }
